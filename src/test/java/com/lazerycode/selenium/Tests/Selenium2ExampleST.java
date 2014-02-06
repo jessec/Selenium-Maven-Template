@@ -1,16 +1,18 @@
 package com.lazerycode.selenium.Tests;
 
-import com.lazerycode.selenium.ScreenshotListener;
+//import com.lazerycode.selenium.ScreenshotListener;
 import com.lazerycode.selenium.SeleniumBase;
+
+import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.Listeners;
-import org.testng.annotations.Test;
+/*import org.testng.annotations.Listeners;
+import org.testng.annotations.Test;*/
 
-@Listeners(ScreenshotListener.class)
+//@Listeners(ScreenshotListener.class)
 public class Selenium2ExampleST extends SeleniumBase {
 
   @Test
