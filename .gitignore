@@ -52,3 +52,4 @@ Thumbs.db
 \.dorsync
 /nbactions.xml
 /target
+/selenium_standalone_binaries
