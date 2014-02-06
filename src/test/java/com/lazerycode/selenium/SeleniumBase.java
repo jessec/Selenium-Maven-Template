@@ -22,7 +22,7 @@ import static com.lazerycode.selenium.BrowserType.FIREFOX;
 public class SeleniumBase {
 
     private static ResourceBundle _prop = ResourceBundle.getBundle("dev");
-    private static BrowserType browserType;
+    private static BrowserType BROWSER_TYPE;
     private static List<WebDriver> webDrivers = Collections.synchronizedList(new ArrayList<WebDriver>());
     private static ThreadLocal<WebDriver> driverForThread = new ThreadLocal<WebDriver>() {
 
@@ -38,12 +38,12 @@ public class SeleniumBase {
     public static void setUpTest() {
         for (BrowserType browser : BrowserType.values()) {
             if (browser.toString().toLowerCase().equals(_prop.getString("browser").toLowerCase())) {
-                browserType = browser;
+                BROWSER_TYPE = browser;
             }
         }
-        if (browserType == null) {
+        if (BROWSER_TYPE == null) {
             System.err.println("Unknown browser specified, defaulting to 'Firefox'...");
-            browserType = FIREFOX;
+            BROWSER_TYPE = FIREFOX;
         }
     }
 
@@ -124,10 +124,10 @@ public class SeleniumBase {
     private static WebDriver loadWebDriver() {
         System.out.println("Current Operating System: " + System.getProperties().getProperty("os.name"));
         System.out.println("Current Architecture: " + System.getProperties().getProperty("os.arch"));
-        System.out.println("Current Browser Selection: " + browserType);
+        System.out.println("Current Browser Selection: " + BROWSER_TYPE);
 
         //Load standalone executable if required
-        switch (browserType) {
+        switch (BROWSER_TYPE) {
             case CHROME:
                 if (System.getProperties().getProperty("os.arch").toLowerCase().equals("x86_64") || System.getProperties().getProperty("os.arch").toLowerCase().equals("amd64")) {
                     if (System.getProperties().getProperty("os.name").toLowerCase().contains("windows")) {
@@ -154,24 +154,26 @@ public class SeleniumBase {
                     System.setProperty("webdriver.ie.driver", _prop.getString("binaryRootFolder") + "/windows/internetexplorer/32bit/2.39.0/IEDriverServer.exe");
                 }
                 break;
+		default:
+			break;
         }
 
         //Instantiate driver object
-        switch (browserType) {
+        switch (BROWSER_TYPE) {
             case FIREFOX:
-                return new FirefoxDriver(generateDesiredCapabilities(browserType));
+                return new FirefoxDriver(generateDesiredCapabilities(BROWSER_TYPE));
             case CHROME:
-                return new ChromeDriver(generateDesiredCapabilities(browserType));
+                return new ChromeDriver(generateDesiredCapabilities(BROWSER_TYPE));
             case IE:
-                return new InternetExplorerDriver(generateDesiredCapabilities(browserType));
+                return new InternetExplorerDriver(generateDesiredCapabilities(BROWSER_TYPE));
             case SAFARI:
-                return new SafariDriver(generateDesiredCapabilities(browserType));
+                return new SafariDriver(generateDesiredCapabilities(BROWSER_TYPE));
             case OPERA:
-                return new OperaDriver(generateDesiredCapabilities(browserType));
+                return new OperaDriver(generateDesiredCapabilities(BROWSER_TYPE));
             case GHOSTDRIVER:
-                return new PhantomJSDriver(generateDesiredCapabilities(browserType));
+                return new PhantomJSDriver(generateDesiredCapabilities(BROWSER_TYPE));
             default:
-                return new HtmlUnitDriver(generateDesiredCapabilities(browserType));
+                return new HtmlUnitDriver(generateDesiredCapabilities(BROWSER_TYPE));
         }
     }
 }
