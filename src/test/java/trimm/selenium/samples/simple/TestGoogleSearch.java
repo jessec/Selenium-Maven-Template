@@ -1,6 +1,6 @@
 package trimm.selenium.samples.simple;
 
-import com.lazerycode.selenium.ScreenshotListener;
+//import com.lazerycode.selenium.ScreenshotListener;
 import com.lazerycode.selenium.SeleniumBase;
 
 import org.junit.Test;
